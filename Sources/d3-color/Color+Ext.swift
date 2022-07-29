@@ -16,14 +16,13 @@ import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, *)
 public extension Color {
-
     #if canImport(UIKit)
         var asNative: UIColor { UIColor(self) }
     #elseif canImport(AppKit)
         var asNative: NSColor { NSColor(self) }
     #endif
 
-    /// returns values RGB and alfa chanels for Color instance
+    /// returns values RGB and alfa channels for Color instance
     var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         #if canImport(UIKit)
             var r: CGFloat = 0
@@ -33,9 +32,9 @@ public extension Color {
             asNative.getRed(&r, green: &g, blue: &b, alpha: &a)
             return (r, g, b, a)
         #elseif canImport(AppKit)
-        
-        var t = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
-        
+
+            var t = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
+
             if let color = asNative.usingColorSpace(.deviceRGB) {
                 color.getRed(&t.0, green: &t.1, blue: &t.2, alpha: &t.3)
                 return t
@@ -56,11 +55,11 @@ public extension Color {
     ///   ```
     /// - Parameter k: step
     /// - Returns: `Color`
-    func doBrighter (k: Double? = nil) -> Color {
-        let r = Double(self.rgba.red),
-            g = Double(self.rgba.green),
-            b = Double(self.rgba.blue),
-            o = Double(self.rgba.alpha)
+    func doBrighter(k: Double? = nil) -> Color {
+        let r = Double(rgba.red),
+            g = Double(rgba.green),
+            b = Double(rgba.blue),
+            o = Double(rgba.alpha)
         let delta = k ?? 0.05
 
         let r_shift = (r + delta).clamped(0, 1)
@@ -69,7 +68,6 @@ public extension Color {
 
         return Color(red: r_shift, green: g_shift, blue: b_shift, opacity: o)
     }
-
 
     /// Do a color darker The result value must be between 0...1 Function automaticaly check it and clamp between 0...1
     /// Default step is 0.05
@@ -80,10 +78,10 @@ public extension Color {
     /// - Parameter k: step
     /// - Returns: `Color`
     func doDarker(k: Double? = nil) -> Color {
-        let r = Double(self.rgba.red),
-            g = Double(self.rgba.green),
-            b = Double(self.rgba.blue),
-            o = Double(self.rgba.alpha)
+        let r = Double(rgba.red),
+            g = Double(rgba.green),
+            b = Double(rgba.blue),
+            o = Double(rgba.alpha)
         let delta = k ?? 0.05
 
         let r_shift = (r - delta).clamped(0, 1)
@@ -94,10 +92,9 @@ public extension Color {
     }
 }
 
-
 // MARK: - Utilities
 
-fileprivate extension Comparable {
+private extension Comparable {
     func clamped(_ a: Self, _ b: Self) -> Self {
         min(max(self, a), b)
     }

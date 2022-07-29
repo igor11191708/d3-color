@@ -6,13 +6,14 @@ import PackageDescription
 let package = Package(
     name: "d3-color",
     platforms: [
-        .macOS("12"), .iOS("15"), .tvOS("15"), .watchOS("6")
+        .macOS("12"), .iOS("15"), .tvOS("15"), .watchOS("6"),
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "d3-color",
-            targets: ["d3-color"]),
+            targets: ["d3-color"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -23,9 +24,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "d3-color",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "d3-colorTests",
-            dependencies: ["d3-color"]),
+            dependencies: ["d3-color"]
+        ),
     ]
 )

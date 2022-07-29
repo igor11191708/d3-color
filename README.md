@@ -4,7 +4,7 @@ Useful extensions and functions used with SwiftUI Color
 
 ## Computed properties
 
-* `rgba` - returns values RGB and alfa chanels for Color instance
+* `rgba` - returns values RGB and alfa channels for Color instance
 
 
 ## Functions 

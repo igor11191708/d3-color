@@ -1,5 +1,5 @@
-import XCTest
 @testable import d3_color
+import XCTest
 
 final class d3_colorTests: XCTestCase {
     func testExample() throws {
