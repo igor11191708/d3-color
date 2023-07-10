@@ -14,7 +14,7 @@ import SwiftUI
     import AppKit
 #endif
 
-@available(iOS 15.0, macOS 12.0, *)
+@available(iOS 14.0, macOS 12.0, *)
 public extension Color {
     #if canImport(UIKit)
         var asNative: UIColor { UIColor(self) }
@@ -46,7 +46,7 @@ public extension Color {
         #endif
     }
 
-    /// Do a color brighter The result value must be between 0...1 Function automaticaly check it and clamp between 0...1
+    /// Do a color brighter The result value must be between 0...1 Function automatically check it and clamp between 0...1
     /// Default step is 0.05
     ///   ```
     ///      let color = Color.green
@@ -69,7 +69,7 @@ public extension Color {
         return Color(red: r_shift, green: g_shift, blue: b_shift, opacity: o)
     }
 
-    /// Do a color darker The result value must be between 0...1 Function automaticaly check it and clamp between 0...1
+    /// Do a color darker The result value must be between 0...1 Function automatically check it and clamp between 0...1
     /// Default step is 0.05
     ///   ```
     ///      let color = Color.blue
