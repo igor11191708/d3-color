@@ -91,6 +91,9 @@ public extension Color {
         return Color(red: r_shift, green: g_shift, blue: b_shift, opacity: o)
     }
     
+    
+    /// UIColor to SwiftUI Color
+    /// - Parameter uiColor: UIColor
     init(uiColor: UIColor) {
         self.init(red: Double(uiColor.rgba.red),
                   green: Double(uiColor.rgba.green),
