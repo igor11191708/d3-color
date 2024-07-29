@@ -9,50 +9,47 @@
 import SwiftUI
 
 #if canImport(UIKit)
-    import UIKit
+import UIKit
 #elseif canImport(AppKit)
-    import AppKit
+import AppKit
 #endif
 
-@available(iOS 14.0, macOS 12.0, *)
+@available(iOS 15.0, macOS 12.0, tvOS 16.0, watchOS 7.0, *)
 public extension Color {
     #if canImport(UIKit)
-        var asNative: UIColor { UIColor(self) }
+    var asNative: UIColor { UIColor(self) }
     #elseif canImport(AppKit)
-        var asNative: NSColor { NSColor(self) }
+    var asNative: NSColor { NSColor(self) }
     #endif
 
-    /// returns values RGB and alfa channels for Color instance
+    /// Returns values RGB and alpha channels for Color instance
     var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         #if canImport(UIKit)
-            var r: CGFloat = 0
-            var g: CGFloat = 0
-            var b: CGFloat = 0
-            var a: CGFloat = 0
-            asNative.getRed(&r, green: &g, blue: &b, alpha: &a)
-            return (r, g, b, a)
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        asNative.getRed(&r, green: &g, blue: &b, alpha: &a)
+        return (r, g, b, a)
         #elseif canImport(AppKit)
-
-            var t = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
-
-            if let color = asNative.usingColorSpace(.deviceRGB) {
-                color.getRed(&t.0, green: &t.1, blue: &t.2, alpha: &t.3)
-                return t
-            } else {
-                let color = asNative
-                color.getRed(&t.0, green: &t.1, blue: &t.2, alpha: &t.3)
-                return t
-            }
+        var t = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
+        if let color = asNative.usingColorSpace(.deviceRGB) {
+            color.getRed(&t.0, green: &t.1, blue: &t.2, alpha: &t.3)
+            return t
+        } else {
+            let color = asNative
+            color.getRed(&t.0, green: &t.1, blue: &t.2, alpha: &t.3)
+            return t
+        }
         #endif
     }
 
-    /// Do a color brighter The result value must be between 0...1 Function automatically check it and clamp between 0...1
+    /// Do a color brighter. The result value must be between 0...1. Function automatically checks and clamps between 0...1
     /// Default step is 0.05
-    ///   ```
-    ///      let color = Color.green
-    ///      color.doBrighter(k: 0.05)
-    ///
-    ///   ```
+    /// ```
+    /// let color = Color.green
+    /// color.doBrighter(k: 0.05)
+    /// ```
     /// - Parameter k: step
     /// - Returns: `Color`
     func doBrighter(k: Double? = nil) -> Color {
@@ -69,12 +66,12 @@ public extension Color {
         return Color(red: r_shift, green: g_shift, blue: b_shift, opacity: o)
     }
 
-    /// Do a color darker The result value must be between 0...1 Function automatically check it and clamp between 0...1
+    /// Do a color darker. The result value must be between 0...1. Function automatically checks and clamps between 0...1
     /// Default step is 0.05
-    ///   ```
-    ///      let color = Color.blue
-    ///      color.doDarker(k: 0.05)
-    ///   ```
+    /// ```
+    /// let color = Color.blue
+    /// color.doDarker(k: 0.05)
+    /// ```
     /// - Parameter k: step
     /// - Returns: `Color`
     func doDarker(k: Double? = nil) -> Color {
@@ -90,8 +87,8 @@ public extension Color {
 
         return Color(red: r_shift, green: g_shift, blue: b_shift, opacity: o)
     }
-    
-    
+
+    #if canImport(UIKit)
     /// UIColor to SwiftUI Color
     /// - Parameter uiColor: UIColor
     init(uiColor: UIColor) {
@@ -100,6 +97,7 @@ public extension Color {
                   blue: Double(uiColor.rgba.blue),
                   opacity: Double(uiColor.rgba.alpha))
     }
+    #endif
 }
 
 // MARK: - Utilities
@@ -110,6 +108,7 @@ private extension Comparable {
     }
 }
 
+#if canImport(UIKit)
 extension UIColor {
     var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         var red: CGFloat = 0
@@ -117,7 +116,7 @@ extension UIColor {
         var blue: CGFloat = 0
         var alpha: CGFloat = 0
         getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
         return (red, green, blue, alpha)
     }
 }
+#endif
