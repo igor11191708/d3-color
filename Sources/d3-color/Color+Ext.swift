@@ -14,15 +14,18 @@ import UIKit
 import AppKit
 #endif
 
+// Extension for Color to support conversions and utility methods
 @available(iOS 15.0, macOS 12.0, tvOS 16.0, watchOS 7.0, *)
 public extension Color {
+
+    // Converts Color to the platform-specific color representation
     #if canImport(UIKit)
     var asNative: UIColor { UIColor(self) }
     #elseif canImport(AppKit)
     var asNative: NSColor { NSColor(self) }
     #endif
 
-    /// Returns values RGB and alpha channels for Color instance
+    /// Returns the RGB and alpha channel values for the Color instance
     var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         #if canImport(UIKit)
         var r: CGFloat = 0
@@ -44,14 +47,9 @@ public extension Color {
         #endif
     }
 
-    /// Do a color brighter. The result value must be between 0...1. Function automatically checks and clamps between 0...1
-    /// Default step is 0.05
-    /// ```
-    /// let color = Color.green
-    /// color.doBrighter(k: 0.05)
-    /// ```
-    /// - Parameter k: step
-    /// - Returns: `Color`
+    /// Makes the color brighter by a specified step. The result is clamped between 0 and 1.
+    /// - Parameter k: The step by which to brighten the color. Default is 0.05.
+    /// - Returns: A new `Color` instance with adjusted brightness.
     func doBrighter(k: Double? = nil) -> Color {
         let r = Double(rgba.red),
             g = Double(rgba.green),
@@ -66,14 +64,9 @@ public extension Color {
         return Color(red: r_shift, green: g_shift, blue: b_shift, opacity: o)
     }
 
-    /// Do a color darker. The result value must be between 0...1. Function automatically checks and clamps between 0...1
-    /// Default step is 0.05
-    /// ```
-    /// let color = Color.blue
-    /// color.doDarker(k: 0.05)
-    /// ```
-    /// - Parameter k: step
-    /// - Returns: `Color`
+    /// Makes the color darker by a specified step. The result is clamped between 0 and 1.
+    /// - Parameter k: The step by which to darken the color. Default is 0.05.
+    /// - Returns: A new `Color` instance with adjusted brightness.
     func doDarker(k: Double? = nil) -> Color {
         let r = Double(rgba.red),
             g = Double(rgba.green),
@@ -89,8 +82,8 @@ public extension Color {
     }
 
     #if canImport(UIKit)
-    /// UIColor to SwiftUI Color
-    /// - Parameter uiColor: UIColor
+    /// Initializes a SwiftUI Color from a UIColor instance.
+    /// - Parameter uiColor: The UIColor instance.
     init(uiColor: UIColor) {
         self.init(red: Double(uiColor.rgba.red),
                   green: Double(uiColor.rgba.green),
@@ -102,14 +95,16 @@ public extension Color {
 
 // MARK: - Utilities
 
-private extension Comparable {
+// Extension to clamp Comparable values within a specified range
+fileprivate extension Comparable {
     func clamped(_ a: Self, _ b: Self) -> Self {
         min(max(self, a), b)
     }
 }
 
 #if canImport(UIKit)
-extension UIColor {
+// Extension to get the RGBA components of a UIColor
+fileprivate extension UIColor {
     var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         var red: CGFloat = 0
         var green: CGFloat = 0
